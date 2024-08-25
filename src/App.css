@@ -1,9 +1,14 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
@@ -39,7 +44,7 @@
 
 /* New button styles */
 button {
-  background-color: #ff6600; /* Bright orange color */
+  background-color: #007bff; /* Blue color */
   border: none;
   border-radius: 8px;
   color: white;
@@ -51,11 +56,62 @@ button {
 }
 
 button:hover {
-  background-color: #e65c00; /* Slightly darker orange on hover */
+  background-color: #0056b3; /* Darker blue on hover */
   transform: scale(1.05); /* Slight zoom on hover */
 }
 
 button:active {
-  background-color: #cc5200; /* Even darker on click */
+  background-color: #004085; /* Even darker blue on click */
   transform: scale(0.95); /* Slightly shrink on click */
+}
+
+.conversion-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.conversion-controls select,
+.conversion-controls input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* New classes for positioning the logos */
+.logo-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logo-left {
+  left: 20px;
+}
+
+.logo-right {
+  right: 20px;
+}
+
+.animated-heading {
+  animation: slideIn 2s ease-out;
+  color: #FFA500; /* Nice orange color for the welcome message */
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.conversion-result {
+  color: #FFA500; /* Nice orange color for the conversion result */
 }

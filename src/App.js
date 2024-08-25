@@ -16,95 +16,151 @@ function App() {
   web3.registerPlugin(new ChainlinkPlugin());
 
   async function getPrice(feed) {
-    const price = await web3.chainlink.getPrice(feed);
-    return Number(price.answer); // Convert BigInt to Number
+    try {
+      console.log(`Fetching price for feed: ${feed}`);
+      const price = await web3.chainlink.getPrice(feed);
+      console.log(`Price for ${feed}:`, price);
+      return Number(price.answer); // Convert BigInt to Number
+    } catch (error) {
+      console.error(`Error fetching price for ${feed}:`, error);
+      throw error;
+    }
   }
 
   async function convertETHtoBTC(ethAmount) {
-    const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
-    const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
-    const btcAmount = (ethAmount * ethToUsd) / btcToUsd;
-    setConversionResult(`${ethAmount} ETH is approximately ${btcAmount.toFixed(5)} BTC`);
+    try {
+      const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
+      const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
+      const btcAmount = (ethAmount * ethToUsd) / btcToUsd;
+      setConversionResult(`${ethAmount} ETH is approximately ${btcAmount.toFixed(5)} BTC`);
+    } catch (error) {
+      console.error("Error in convertETHtoBTC:", error);
+    }
   }
 
   async function convertBTCtoETH(btcAmount) {
-    const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
-    const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
-    const ethAmount = (btcAmount * btcToUsd) / ethToUsd;
-    setConversionResult(`${btcAmount} BTC is approximately ${ethAmount.toFixed(5)} ETH`);
+    try {
+      const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
+      const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
+      const ethAmount = (btcAmount * btcToUsd) / ethToUsd;
+      setConversionResult(`${btcAmount} BTC is approximately ${ethAmount.toFixed(5)} ETH`);
+    } catch (error) {
+      console.error("Error in convertBTCtoETH:", error);
+    }
   }
 
   async function convertETHtoBNB(ethAmount) {
-    const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
-    const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
-    const bnbAmount = (ethAmount * ethToUsd) / bnbToUsd;
-    setConversionResult(`${ethAmount} ETH is approximately ${bnbAmount.toFixed(5)} BNB`);
+    try {
+      const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
+      const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
+      const bnbAmount = (ethAmount * ethToUsd) / bnbToUsd;
+      setConversionResult(`${ethAmount} ETH is approximately ${bnbAmount.toFixed(5)} BNB`);
+    } catch (error) {
+      console.error("Error in convertETHtoBNB:", error);
+    }
   }
 
   async function convertBTCtoBNB(btcAmount) {
-    const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
-    const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
-    const bnbAmount = (btcAmount * btcToUsd) / bnbToUsd;
-    setConversionResult(`${btcAmount} BTC is approximately ${bnbAmount.toFixed(5)} BNB`);
+    try {
+      const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
+      const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
+      const bnbAmount = (btcAmount * btcToUsd) / bnbToUsd;
+      setConversionResult(`${btcAmount} BTC is approximately ${bnbAmount.toFixed(5)} BNB`);
+    } catch (error) {
+      console.error("Error in convertBTCtoBNB:", error);
+    }
   }
 
   async function convertBNBtoETH(bnbAmount) {
-    const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
-    const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
-    const ethAmount = (bnbAmount * bnbToUsd) / ethToUsd;
-    setConversionResult(`${bnbAmount} BNB is approximately ${ethAmount.toFixed(5)} ETH`);
+    try {
+      const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
+      const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
+      const ethAmount = (bnbAmount * bnbToUsd) / ethToUsd;
+      setConversionResult(`${bnbAmount} BNB is approximately ${ethAmount.toFixed(5)} ETH`);
+    } catch (error) {
+      console.error("Error in convertBNBtoETH:", error);
+    }
   }
 
   async function convertBNBtoBTC(bnbAmount) {
-    const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
-    const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
-    const btcAmount = (bnbAmount * bnbToUsd) / btcToUsd;
-    setConversionResult(`${bnbAmount} BNB is approximately ${btcAmount.toFixed(5)} BTC`);
+    try {
+      const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
+      const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
+      const btcAmount = (bnbAmount * bnbToUsd) / btcToUsd;
+      setConversionResult(`${bnbAmount} BNB is approximately ${btcAmount.toFixed(5)} BTC`);
+    } catch (error) {
+      console.error("Error in convertBNBtoBTC:", error);
+    }
   }
 
   async function convertETHtoUSDT(ethAmount) {
-    const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
-    const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
-    const usdtAmount = (ethAmount * ethToUsd) / usdtToUsd;
-    setConversionResult(`${ethAmount} ETH is approximately ${usdtAmount.toFixed(5)} USDT`);
+    try {
+      const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
+      const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
+      const usdtAmount = (ethAmount * ethToUsd) / usdtToUsd;
+      setConversionResult(`${ethAmount} ETH is approximately ${usdtAmount.toFixed(5)} USDT`);
+    } catch (error) {
+      console.error("Error in convertETHtoUSDT:", error);
+    }
   }
 
   async function convertBTCtoUSDT(btcAmount) {
-    const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
-    const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
-    const usdtAmount = (btcAmount * btcToUsd) / usdtToUsd;
-    setConversionResult(`${btcAmount} BTC is approximately ${usdtAmount.toFixed(5)} USDT`);
+    try {
+      const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
+      const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
+      const usdtAmount = (btcAmount * btcToUsd) / usdtToUsd;
+      setConversionResult(`${btcAmount} BTC is approximately ${usdtAmount.toFixed(5)} USDT`);
+    } catch (error) {
+      console.error("Error in convertBTCtoUSDT:", error);
+    }
   }
 
   async function convertBNBtoUSDT(bnbAmount) {
-    const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
-    const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
-    const usdtAmount = (bnbAmount * bnbToUsd) / usdtToUsd;
-    setConversionResult(`${bnbAmount} BNB is approximately ${usdtAmount.toFixed(5)} USDT`);
+    try {
+      const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
+      const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
+      const usdtAmount = (bnbAmount * bnbToUsd) / usdtToUsd;
+      setConversionResult(`${bnbAmount} BNB is approximately ${usdtAmount.toFixed(5)} USDT`);
+    } catch (error) {
+      console.error("Error in convertBNBtoUSDT:", error);
+    }
   }
 
   async function convertUSDTtoETH(usdtAmount) {
-    const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
-    const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
-    const ethAmount = (usdtAmount * usdtToUsd) / ethToUsd;
-    setConversionResult(`${usdtAmount} USDT is approximately ${ethAmount.toFixed(5)} ETH`);
+    try {
+      const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
+      const ethToUsd = await getPrice(MainnetPriceFeeds.EthUsd);
+      const ethAmount = (usdtAmount * usdtToUsd) / ethToUsd;
+      setConversionResult(`${usdtAmount} USDT is approximately ${ethAmount.toFixed(5)} ETH`);
+    } catch (error) {
+      console.error("Error in convertUSDTtoETH:", error);
+    }
   }
 
   async function convertUSDTtoBTC(usdtAmount) {
-    const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
-    const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
-    const btcAmount = (usdtAmount * usdtToUsd) / btcToUsd;
-    setConversionResult(`${usdtAmount} USDT is approximately ${btcAmount.toFixed(5)} BTC`);
+    try {
+      const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
+      const btcToUsd = await getPrice(MainnetPriceFeeds.BtcUsd);
+      const btcAmount = (usdtAmount * usdtToUsd) / btcToUsd;
+      setConversionResult(`${usdtAmount} USDT is approximately ${btcAmount.toFixed(5)} BTC`);
+    } catch (error) {
+      console.error("Error in convertUSDTtoBTC:", error);
+    }
   }
 
   async function convertUSDTtoBNB(usdtAmount) {
-    const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
-    const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
-    const bnbAmount = (usdtAmount * usdtToUsd) / bnbToUsd;
-    setConversionResult(`${usdtAmount} USDT is approximately ${bnbAmount.toFixed(5)} BNB`);
+    try {
+      const usdtToUsd = await getPrice(MainnetPriceFeeds.UsdtUsd);
+      const bnbToUsd = await getPrice(MainnetPriceFeeds.BnbUsd);
+      const bnbAmount = (usdtAmount * usdtToUsd) / bnbToUsd;
+      setConversionResult(`${usdtAmount} USDT is approximately ${bnbAmount.toFixed(5)} BNB`);
+    } catch (error) {
+      console.error("Error in convertUSDTtoBNB:", error);
+    }
   }
 
   async function handleConversion() {
+    console.log(`Conversion type: ${conversionType}, Amount: ${amount}`);
     if (conversionType === "ETHtoBTC") {
       await convertETHtoBTC(amount);
     } else if (conversionType === "BTCtoETH") {
@@ -139,6 +195,8 @@ function App() {
         <h1 className="animated-heading">Welcome to Crypto Converter</h1>
         <div className="conversion-controls">
           <select
+            id="conversionType"
+            name="conversionType"
             value={conversionType}
             onChange={(e) => setConversionType(e.target.value)}
           >
@@ -156,6 +214,8 @@ function App() {
             <option value="USDTtoBNB">USDT to BNB</option>
           </select>
           <input
+            id="amount"
+            name="amount"
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
